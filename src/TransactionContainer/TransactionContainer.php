@@ -111,24 +111,27 @@ class TransactionContainer {
 
 	// Функция нужна для сохранения результатов
 	public function saveResult($blockCount, $saveDir) {
-		var_dump($blockCount);
-		var_dump("Start saving: " . memory_get_usage(true));
+		echo "Save index block $blockCount" . PHP_EOL;
+		// var_dump("Memory start saving: " . memory_get_usage(true));
 		$start = microtime(true);
+		
 		// Сохраняем номер блока
 		file_put_contents($saveDir . 'blockCount.dump', $blockCount);
-		var_dump("After saving blockCount: " . memory_get_usage(true));
+		// var_dump("After saving blockCount: " . memory_get_usage(true));
+		
 		// Сохраняем utxo
 		$this->saveUTXO($saveDir);
-		var_dump("After saving utxo: " . memory_get_usage(true));
+		// var_dump("After saving utxo: " . memory_get_usage(true));
+		
 		// Сохраняет deleted_utxo
 		$this->saveDeleted_UTXO($saveDir);
-		var_dump("After saving deleted_utxo: " . memory_get_usage(true));
+		// var_dump("After saving deleted_utxo: " . memory_get_usage(true));
 
 		// Перезаписываем
 		file_put_contents($saveDir . 'address.dump', '');
 
 
-		// Сохраняем hash_160
+		// Сохраняем адреса (hash_160 от адреса)
 		$address = array();
 		foreach ($this->utxo as $utxo) {
 			foreach ($utxo->outputs as $output) {
@@ -141,7 +144,7 @@ class TransactionContainer {
 				}
 			}
 		}
-		var_dump("After transform address: " . memory_get_usage(true));
+		// var_dump("After transform address: " . memory_get_usage(true));
 
 		file_put_contents($saveDir . 'address.dump', '');
 		$file = fopen($saveDir . 'address.dump', 'w');
@@ -154,8 +157,8 @@ class TransactionContainer {
 		unset($address);
 
 
-		var_dump("End saving: " . memory_get_usage(true));
-		var_dump("Savetime: " . substr((microtime(true) - $start), 0, 4));
+		// var_dump("End saving: " . memory_get_usage(true));
+		echo 'Save time: ' . substr((microtime(true) - $start), 0, 4) . PHP_EOL . PHP_EOL;
 	}
 
 	public function saveUTXO($saveDir) {

@@ -5,16 +5,18 @@ namespace Utils;
 
 class Script {
 
-    // data pushing opcodes
+    // Data pushing opcodes
     const OP_0 = 0x0;
     const OP_1 = 0x51;
+    const OP_1NEGATE = 0x4f;
     const OP_16 = 0x60;
+    // The next opcode bytes is data to be pushed onto the stack
     const OP_PUSHDATA_MIN = 0x01;
     const OP_PUSHDATA_MAX = 0x4b;
+    // The next 1/2/4 bytes push in little endian
     const OP_PUSHDATA1 = 0x4c;
     const OP_PUSHDATA2 = 0x4d;
     const OP_PUSHDATA4 = 0x4e;
-    const OP_1NEGATE = 0x4f;
 
     // flow control statements
     const OP_NOP = 0x61;
